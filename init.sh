@@ -3,6 +3,8 @@ mv web_django/init.sh ./
 rm -rf web_django
 
 chmod +x init.sh
+chmod +x web/etc/hello.py
+ln -s /home/box/web/etc/hello.py /home/box/web/
 
 sudo ln -s /home/box/web/etc/nginx.conf /etc/nginx/sites-enabled/test.conf
 sudo unlink /etc/nginx/sites-enabled/default
@@ -10,5 +12,6 @@ sudo /etc/init.d/nginx restart
 
 sudo ln -s /home/box/web/etc/gunicorn.conf /etc/gunicorn.d/test
 sudo /etc/init.d/gunicorn restart
+sudo /etc/init.d/gunicorn stop
 
 sudo /etc/init.d/mysql start
