@@ -8,4 +8,6 @@ from django.http import HttpResponse
 def test(request, *args, **kwargs):
     return HttpResponse('OK')
 
+def template(request):
+    return render(request, 'qa/index.html')
 
