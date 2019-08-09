@@ -23,5 +23,5 @@ class Answer(models.Model):
 	text = models.TextField()
 	added_at = models.DateTimeField(blank=True)
 	question = models.OneToOneField(Question)
-	author = models.CharField(max_length=50)
+	author = models.ForeignKey(User)
 
