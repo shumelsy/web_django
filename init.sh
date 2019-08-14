@@ -25,4 +25,3 @@ cd /home/box/web/ask/
 sudo gunicorn --bind='0.0.0.0:8000' ask.wsgi:application &
 #sudo gunicorn -c /home/box/web/etc/gunicorn_ask.conf ask.wsgi:application &
 
-
