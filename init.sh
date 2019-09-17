@@ -11,6 +11,10 @@ sudo unlink /etc/nginx/sites-enabled/default
 sudo /etc/init.d/nginx restart
 
 sudo /etc/init.d/mysql start
+mysql -uroot -e "create database ask;"
+mysql -uroot -e "create user box@'localhost' identified by 'au7emeer2GeeSee';"
+mysql -uroot -e "grant all privileges on ask.* to box@'localhost';"
+mysql -uroot -e "flush privileges;"
 
 #sudo ln -s /home/box/web/etc/gunicorn.conf /etc/gunicorn.d/test
 #sudo /etc/init.d/gunicorn restart
