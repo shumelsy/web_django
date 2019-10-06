@@ -44,13 +44,13 @@ def one_question(request, num):
 	try:
 		question = Question.objects.get(id=num)
 		try:
-			answer = Answer.objects.get(question=question)
+			answer = Answer.objects.filter(question=question)
 		except Answer.DoesNotExist:
 			answer = None
 	except Question.DoesNotExist:
 		raise Http404
 	return render(request, 'qa/question.html', {
 		'question': question,
-		'answer': answer,
+		'answers': answer,
 	})
 

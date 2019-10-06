@@ -1,3 +1,14 @@
 {{ question.title }}<br />
 {{ question.text }}<br />
-{{ answer.text }}<br />
+
+{% block answers %}
+  <h2>Answers:</h2>
+  {% for answer in answers %}
+    <div class="answer">
+        <p class="info">
+	    Answer by {{ answer.author }} [{{ answer.added_at }}]
+	</p>
+	{{ answer.text }}<br />
+    </div>
+  {% endfor %}
+{% endblock %}
