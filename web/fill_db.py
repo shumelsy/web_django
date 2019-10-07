@@ -12,8 +12,8 @@ from qa.models import Question
 from qa.models import Answer
 
 #res = Question.objects.all().aggregate(Max('rating'))
-#res = Question.objects.all().aggregate(Max('rating'))
-#max_rating = res['rating__max'] or 0
+res = Question.objects.all().aggregate(Max('rating'))
+max_rating = res['rating__max'] or 0
 
 #Create user
 user, _ = User.objects.get_or_create(

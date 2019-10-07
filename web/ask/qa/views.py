@@ -33,7 +33,7 @@ def popular_question_list(request):
         limit = request.GET.get('limit', 10)
         page = request.GET.get('page', 1)
         paginator = Paginator(questions, limit)
-        paginator.baseurl = '/?page='
+        paginator.baseurl = '/popular/?page='
         page = paginator.page(page)
         return render(request, 'qa/paginator.html', {
                 'questions': page.object_list,

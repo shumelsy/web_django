@@ -2,11 +2,12 @@
 {% extends "base.html" %}
 
 {% block title %}
-	{{ block.super }} Главная страница. 
+	{{ block.super }}<h3>Главная страница.</h3>
 {% endblock %}
 
 {% block content %}
-
+	
+	<h3>Список вопросов</h3>
 	{% for quest in questions %}
 		{{ quest.title }}
 		<br>

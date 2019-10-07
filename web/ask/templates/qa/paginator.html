@@ -1,17 +1,24 @@
-{% for q in questions %}
-	{{ q.title }}<br />
-	<a href="/question/{{ q.id }}">Go</a><br />
-{% endfor %}
+{% extends "base.html" %}
 
-<nav><ul class="pagination">
-{% for p in paginator.page_range %}
+{% block content %}
+  <h4>Страница {{ page.number }}</h4><br>
+  {% for q in questions %}
+	{{ q.title }}<br />
+	<a href="/question/{{ q.id }}">Go_to_question</a><br />
+	<br>
+  {% endfor %}
+
+  <nav><ul class="pagination">
+  {% for p in paginator.page_range %}
 	{% if p == page.number %}
 	<li class="active">
 	{% else %}
 	<li>
 	{% endif %}
-		<a href="{{ paginator.baseurl }}{{ p }}">
+		Go to <a href="{{ paginator.baseurl }}{{ p }}">page
 		{{ p }}</a>
 	</li>
-{% endfor %}
-</ul></nav>
+  {% endfor %}
+  </ul></nav>
+
+{% endblock %}

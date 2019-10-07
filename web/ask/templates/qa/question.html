@@ -1,14 +1,25 @@
-{{ question.title }}<br />
-{{ question.text }}<br />
+{% extends "base.html" %}
 
-{% block answers %}
-  <h2>Answers:</h2>
-  {% for answer in answers %}
-    <div class="answer">
+{% block title %}
+	{{ block.super }}<h3>Question №{{ question.id }}</h3>
+{% endblock %}
+
+{% block content %}
+
+  <h3>Question:</h3>
+  {{ question.title }}<br />
+  {{ question.text }}<br />
+
+  {% block answers %}
+    <h3>Answers:</h3>
+    {% for answer in answers %}
+      <div class="answer">
         <p class="info">
 	    Answer by {{ answer.author }} [{{ answer.added_at }}]
 	</p>
 	{{ answer.text }}<br />
-    </div>
-  {% endfor %}
+      </div>
+    {% endfor %}
+  {% endblock %}
+
 {% endblock %}
