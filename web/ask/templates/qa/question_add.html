@@ -1,34 +1,16 @@
 {% extends "base.html" %}
 
 {% block title %}
-	{{ block.super }}<h3>Question №{{ question.id }}</h3>
+	{{ block.super }}<h3>Add question</h3>
 {% endblock %}
 
 {% block content %}
-
-  <h3>Question:</h3>
-  {{ question.title }}<br />
-  {{ question.text }}<br />
-
-  {% block answers %}
-    <h3>Answers:</h3>
-    {% for answer in answers %}
-      <div class="answer">
-        <p class="info">
-	    Answer by {{ answer.author }} [{{ answer.added_at }}]
-	</p>
-	{{ answer.text }}<br />
-      </div>
-    {% endfor %}
-  {% endblock %}
-    
-  {% block add_answer %}
-    <h3>Add answer</h3>
     {% for e in form.non_field_errors %}
         <div class="alert alert-danger">{{ e }}</div>
     {% endfor %}
-    <form class="form-horizontal" action="/question/{{ question.id }}/" method="post">
-    {% csrf_token %}
+{#    <form class="form-horizontal" action="/ask/" method="post"> #}
+        <form class="form-horizontal" action="/ask/" method="post">
+        {% csrf_token %}
         {# {{ form.as_p }} #}
         <fieldset>
             {% for field in form %}
@@ -40,6 +22,5 @@
         </fieldset>
         <input type="submit" class="button" value="Add">
     </form>
-  {% endblock %}
-
 {% endblock %}
+
