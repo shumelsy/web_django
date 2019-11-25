@@ -41,6 +41,7 @@ def popular_question_list(request):
 def one_question(request, question_id):
     try:
         question = Question.objects.get(id=question_id)
+        print('\nНахожу нужный вопрос:\n question_id = ', question_id, ', question = ', question, '\n')
         try:
             answers = Answer.objects.filter(question=question)
         except Answer.DoesNotExist:
@@ -50,14 +51,14 @@ def one_question(request, question_id):
     return answer_add(request, question, answers)
 
 def question_add(request):
+    print('\nОтрисовываю форму добавления вопроса:\n request.POST = ', request.POST, ', request = ', request, '\n')
     if request.method == "POST":
-        print('\n', request.POST, '\n', request, '\n')
         form = AskForm(request.POST)
         if form.is_valid():
             form.clean()
             question = form.save()
-            print('\nВопрос добавлен\n')
             url = question.get_url()
+            print('\nВопрос добавлен, переадресовываю на URL: ', url, '\n')
             return HttpResponseRedirect(url)
     else:
         form = AskForm()
@@ -66,17 +67,17 @@ def question_add(request):
     })
 
 def answer_add(request, question, answers):
+    print('\nОтрисовываю форму добавления ответа и связи с вопросом:\n request.POST = ', request.POST, ', type = ', type(request.POST), '\n requset.GET = ', request.GET, '\n request = ', request, '\n question = ', question, ', type = ', type(question), '\n question.get_url() = ', question.get_url(), '\n question.id = ', question.id, '\n answers = ', answers, '\n')
     if request.method == "POST":
-        print('\n', request.POST, '\n', question.get_url(), '\n', request, '\n', question, '\n', answers, '\n')
-        form = AnswerForm(question, request.POST)
+        form = AnswerForm(request.POST, initial={'question': question.id})
         if form.is_valid():
             form.clean()
             answer = form.save()
-            print('\nОтвет добавлен\n')
             url = question.get_url()
+            print('\nОтвет добавлен, переадресовываю на URL: ', url, '\n')
             return HttpResponseRedirect(url)
     else:
-        form = AnswerForm(question)
+        form = AnswerForm(initial={'question': question.id})
     return render(request, 'qa/question.html', {
         'question': question,
         'answers': answers,

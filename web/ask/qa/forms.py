@@ -15,18 +15,15 @@ class AskForm(forms.Form):
 
 class AnswerForm(forms.Form):
     text = forms.CharField(label='Your Text', widget=forms.Textarea)
-#    question = forms.IntegerField(widget=forms.HiddenInput())
-    question = forms.ModelMultipleChoiceField(label='Select Question', queryset=Question.objects.all())
+    question = forms.ModelChoiceField(queryset=Question.objects.all())
 
-    def __init__(self, question_id, *args, **kwargs):
-        self._id = question_id
+    def __init__(self, *args, **kwargs):    
         super(AnswerForm, self).__init__(*args, **kwargs)
 
     def clean(self):
         pass
 
     def save(self):
-        self.cleaned_data['question'] = self._id
         answer = Answer(**self.cleaned_data)
         answer.save()
         return answer
