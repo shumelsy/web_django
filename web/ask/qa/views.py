@@ -5,10 +5,10 @@ from django.shortcuts import render, render_to_response
 # Create your views here.
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.core.paginator import Paginator
-from django.contrib.auth import authenticate, login, logout, get_user, forms
+from django.contrib.auth import authenticate, login, logout, get_user
 from django.template.context_processors import csrf
 from qa.models import Question, Answer
-from qa.forms import AskForm, AnswerForm
+from qa.forms import AskForm, AnswerForm, UserCreationForm
 
 
 def test(request, *args, **kwargs):
@@ -128,9 +128,9 @@ def logout_user(request):
 def signup_user(request):
     args = {}
     args.update(csrf(request))
-    args['form'] = forms.UserCreationForm()
+    args['form'] = UserCreationForm()
     if request.POST:
-        new_userform = forms.UserCreationForm(request.POST)   
+        new_userform = UserCreationForm(request.POST)   
         if new_userform.is_valid():
             new_userform.save()
             newUser = authenticate(username=new_userform.cleaned_data['username'], password=new_userform.cleaned_data['password1'])
