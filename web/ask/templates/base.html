@@ -1,4 +1,8 @@
 <!-- Шаблон для всех страниц -->
+{% block header %}
+    {% include "base_auth.html" %}
+{% endblock %}
+
 {% block title %}
 	{{ block.super }} <h2>Answers&questions</h2><br> 
 {% endblock %}
