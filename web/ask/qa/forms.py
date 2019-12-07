@@ -1,5 +1,4 @@
 from django import forms
-#from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from qa.models import Question, Answer
 
@@ -31,34 +30,25 @@ class AnswerForm(forms.Form):
         return answer
 
 class UserCreation(forms.ModelForm):
-#    username = forms.CharField(label='Your name', max_length=100)
-#    email = forms.EmailField(label='Your email')
-    password = forms.CharField(label='Password', max_length=32, widget=forms.PasswordInput)
+    password = forms.CharField(label='Password', max_length=32, widget=forms.PasswordInput, help_text='Password is be required')
 
     class Meta:
         model = User
         fields = ('username', 'email')
 
-    #def save(self, commit=True):
-        #user = super(UserCreationForm, self).save(commit=False)
-        #user.email = self.cleaned_data["email"]
-        #if commit:
-            #user.save()
-        #return User
-    
     def clean_username(self):
         username = self.cleaned_data.get('username', '').lower()
         try:
             user_name = User.objects.get(username=username)
         except User.DoesNotExist:
             return self.cleaned_data['username']
-        raise forms.ValidationError(u'Username {} is already exists.'.format(username))
+        raise forms.ValidationError(u'Username ***{}*** is already exists.'.format(username))
         
     def clean_email(self):
         bad_domains = ['mail.ru', 'gmail.ru', 'yandex.com']
         email_domain = self.cleaned_data['email'].split('@')[1]
         if email_domain in bad_domains:
-            raise forms.ValidationError(u'Registration with email {} is prohibited'.format(email_domain))
+            raise forms.ValidationError(u'Registration with email ***{}*** is prohibited'.format(email_domain))
         return self.cleaned_data['email']
 
     def save(self):

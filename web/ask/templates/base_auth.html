@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Q&A</title>
 
     <style>
         .right
@@ -29,9 +29,9 @@
 </head>
 
 {% if user.is_authenticated %}
-    <a href=/logout/" class="right">Выйти ({{ user.username }})</a>
+    <a href=/logout/" class="right">Logout ({{ user.username }})</a>
 {% else %}
-    <a href="/signup/" class="right">Регистрация</a>
-    <a href="/login/" class="right">Войти</a>
+    <a href="/signup/" class="right">Sign up</a>
+    <a href="/login/" class="right">Sign in</a>
 {% endif %}
 

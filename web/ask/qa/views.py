@@ -103,18 +103,17 @@ def answer_add(request, question, answers):
 def login_user(request):
     args = {}
     args.update(csrf(request))
-    if request.POST:
+    if request.method == 'POST':
         username = request.POST.get('username', '')
         password = request.POST.get('password', '')
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
             sessionid = request.COOKIES
-            print('\nПользователь залогинен, sessionid = ', sessionid, '\n')
+            print('\nПользователь залогинен\n sessionid = ', sessionid, '\n')
             return HttpResponseRedirect('/')
         else:
-            args['login_error'] = "Пользователь не найден или логин/пароль некорректны"
-#            return HttpResponseRedirect('/login/')
+            args['login_error'] = "User or password is incorrect"
             return render_to_response('qa/login.html', args)
     else:
         return render(request, 'qa/login.html', args)
@@ -126,19 +125,15 @@ def logout_user(request):
 
 
 def signup_user(request):
-    args = {}
-    args.update(csrf(request))
-    args['form'] = UserCreation()
-    if request.POST:
-        new_userform = UserCreation(request.POST)   
-        print('\nРегистрация пользователя: ', request.POST, '\nТекущий юзер: ', request.user)
-        if new_userform.is_valid():
-            new_userform.save()
-            newUser = authenticate(username=new_userform.cleaned_data['username'], password=new_userform.cleaned_data['password'])
+    if request.method == 'POST':
+        form = UserCreation(request.POST)   
+        print('\nРегистрация пользователя:\n request.POST = ', request.POST, '\nТекущий юзер:\n request.user = ', request.user)
+        if form.is_valid():
+            form.save()
+            newUser = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
             login(request, newUser)
             return HttpResponseRedirect('/')
-        else:
-            args['form'] = new_userform
-    return render(request, 'qa/signup.html', args)
-
+    else:
+        form = UserCreation()
+    return render(request, 'qa/signup.html', {'form': form})
 
