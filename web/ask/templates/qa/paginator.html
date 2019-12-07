@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h4>Страница {{ page.number }}</h4><br>
+  <h4>Page {{ page.number }}</h4><br>
   {% for q in questions %}
 	{{ q.title }}<br />
 	<a href="/question/{{ q.id }}">Go_to_question</a><br />

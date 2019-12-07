@@ -8,7 +8,7 @@ from django.core.paginator import Paginator
 from django.contrib.auth import authenticate, login, logout, get_user
 from django.template.context_processors import csrf
 from qa.models import Question, Answer
-from qa.forms import AskForm, AnswerForm, UserCreationForm
+from qa.forms import AskForm, AnswerForm, UserCreation
 
 
 def test(request, *args, **kwargs):
@@ -128,12 +128,13 @@ def logout_user(request):
 def signup_user(request):
     args = {}
     args.update(csrf(request))
-    args['form'] = UserCreationForm()
+    args['form'] = UserCreation()
     if request.POST:
-        new_userform = UserCreationForm(request.POST)   
+        new_userform = UserCreation(request.POST)   
+        print('\nРегистрация пользователя: ', request.POST, '\nТекущий юзер: ', request.user)
         if new_userform.is_valid():
             new_userform.save()
-            newUser = authenticate(username=new_userform.cleaned_data['username'], password=new_userform.cleaned_data['password1'])
+            newUser = authenticate(username=new_userform.cleaned_data['username'], password=new_userform.cleaned_data['password'])
             login(request, newUser)
             return HttpResponseRedirect('/')
         else:

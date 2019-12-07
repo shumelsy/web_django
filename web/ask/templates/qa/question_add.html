@@ -8,10 +8,8 @@
     {% for e in form.non_field_errors %}
         <div class="alert alert-danger">{{ e }}</div>
     {% endfor %}
-{#    <form class="form-horizontal" action="/ask/" method="post"> #}
         <form class="form-horizontal" action="/ask/" method="post">
         {% csrf_token %}
-        {# {{ form.as_p }} #}
         <fieldset>
             {% for field in form %}
                 <div class="control-group {% if field.errors %}has-error{% endif %}">

@@ -3,12 +3,12 @@
 {% block content %}
     <form action="/login/" method="post">
         {% csrf_token %}
-        <p><label for="username">Имя пользователя</label>
-        <input type="text" name="username" id="username">
-        <p><label for="password">Пароль</label>
-        <input type="password" name="password" id="password"><p>
+        <p><label for="username">Username:</label></p>
+        <p><input type="text" name="username" id="username"></p>
+        <p><label for="password">Password:</label></p>
+        <p><input type="password" name="password" id="password"></p>
         {% if login_error %}
-            <label class="error">{{ login_error }}</label><p>
+            <p><label class="error">{{ login_error }}</label></p>
         {% endif %}
-        <input class="button" type="submit" value="Войти">
+        <input class="button" type="submit" value="Sign in">
 {% endblock %}
